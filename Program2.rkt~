@@ -1,42 +1,5 @@
 #lang racket
-#|
-(define input-file "VideoGamesSales.txt")
 
-;; Read the content of the file
-(define input-text
-  (call-with-input-file input-file
-    (lambda (input-port)
-      (let loop ((line (read-line input-port))
-                 (result '()))
-        (if (eof-object? line)
-            (reverse result)
-            (loop (read-line input-port)
-                  (cons line result)))))))
-
-;; Extract each field and create a list of lists
-(define csv-data
-  (for/list ([line input-text])
-    (let ([fields (regexp-split #rx"," line)])
-      (for/list ([field fields])
-        (cond
-          [(string-contains? field "'") 
-           (substring field 1 (sub1 (string-length field)))]
-          [else field])))))
-
-;; Menu function
-(define (menu)
-  (printf "Enter up to 3 search criteria (or 'q' to quit):\n")
-  (let loop ([criteria '()])
-    (cond
-      [(= (length criteria) 3) criteria]
-      [else
-       (printf "~a. Enter 'name', 'date', 'publisher', 'region', or 'genre' (or 'q' to quit): " (add1 (length criteria)))
-       (let ([choice (string->symbol (read-line))])
-         (cond
-           [(eq? choice 'q) criteria]
-           [(member choice '(name date publisher region genre)) (loop (cons choice criteria))]
-           [else (printf "Invalid choice. Please try again.\n")
-                 (loop criteria)]))])))|#
 #|
 import csv reader and maybe
 |#
